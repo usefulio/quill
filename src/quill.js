@@ -75,7 +75,7 @@ class Quill extends EventEmitter {
     this.root.innerHTML = html.trim();
     this.root.setAttribute('id', this.options.id);
     this.editor = new Editor(this.root);
-    this.selection = new Selection(this.editor);
+    this.selection = new Selection(this.editor, this.options.selection);
     this.editor.onUpdate = (delta, source = Quill.sources.USER) => {
       this.emit(Quill.events.TEXT_CHANGE, delta, source);
       if (delta.length() > 0) {

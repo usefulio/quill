@@ -29,9 +29,10 @@ class Range {
 
 
 class Selection {
-  constructor(doc) {
+  constructor(doc, options = {}) {
     this.doc = doc;
     this.root = this.doc.domNode;
+    this.options = options;
     this.lastRange = this.savedRange = new Range(0, 0);
     ['keyup', 'mouseup', 'mouseleave', 'touchend', 'touchleave'].forEach((eventName) => {
       this.root.addEventListener(eventName, () => {
@@ -129,7 +130,7 @@ class Selection {
   }
 
   getRange() {
-    if (!this.checkFocus()) return null;
+    if (!this.checkFocus() && this.options.readOnlyEvents !== true) return null;
     let convert = (node, offset) => {
       // Does not handle custom parent blots with multiple non-blot children
       let blot;
