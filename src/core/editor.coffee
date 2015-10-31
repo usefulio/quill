@@ -17,7 +17,7 @@ class Editor
     @doc = new Document(@root, @options)
     @delta = @doc.toDelta()
     @length = @delta.length()
-    @selection = new Selection(@doc, @quill)
+    @selection = new Selection(@doc, @quill, @options.selection)
     @timer = setInterval(_.bind(this.checkUpdate, this), @options.pollInterval)
     @savedRange = null;
     @quill.on("selection-change", (range) =>

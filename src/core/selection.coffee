@@ -6,14 +6,14 @@ Range      = require('../lib/range')
 
 
 class Selection
-  constructor: (@doc, @emitter) ->
+  constructor: (@doc, @emitter, @options = {}) ->
     @focus = false
     @range = new Range(0, 0)
     @nullDelay = false
     this.update('silent')
 
   checkFocus: ->
-    return document.activeElement == @doc.root
+    return document.activeElement == @doc.root or @options.readOnlyEvents
 
   getRange: (ignoreFocus = false) ->
     if this.checkFocus()
